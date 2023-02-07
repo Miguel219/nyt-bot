@@ -108,10 +108,11 @@ class NYTBot:
 
     # Show all results
     def show_all_results(self):
+        locator = "xpath: //button[@data-testid='search-show-more-button']"
         try:
             while True:
-                self.seh.click_button(
-                    "xpath: //button[@data-testid='search-show-more-button']")
+                self.seh.wait_until_page_contains_element(locator)
+                self.seh.click_button(locator)
                 time.sleep(1)
         except:
             pass
