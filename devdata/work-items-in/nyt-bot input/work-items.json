@@ -1,0 +1,14 @@
+[
+  {
+    "payload": {
+      "term": "soccer",
+      "section": "Briefing",
+      "months_number": 2,
+      "output_excel": "output/data.xlsx",
+      "output_pictures": "output/pictures"
+    },
+    "files": {
+      "orders.xlsx": "orders.xlsx"
+    }
+  }
+]

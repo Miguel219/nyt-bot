@@ -1,23 +1,19 @@
+from RPA.Robocorp.WorkItems import WorkItems
+
 from NYTBot import NYTBot
 
-TERM = "soccer"
 
-SECTION = "Any"
-SECTION = "Briefing"
-
-MONTHS_NUMBER = 2
-
-OUTPUT_EXCEL = "output/data.xlsx"
-OUTPUT_PICTURES = "output/pictures"
+workItems = WorkItems()
 
 
 def main():
+    payload = workItems.get_input_work_item().payload
     bot = NYTBot(
-        term=TERM,
-        section=SECTION,
-        months_number=MONTHS_NUMBER,
-        output_excel=OUTPUT_EXCEL,
-        output_pictures=OUTPUT_PICTURES
+        term=payload['term'],
+        section=payload['section'],
+        months_number=int(payload['months_number']),
+        output_excel=payload['output_excel'],
+        output_pictures=payload['output_pictures']
     )
     bot.run()
 
