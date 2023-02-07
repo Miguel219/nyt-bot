@@ -79,7 +79,7 @@ class NYTBot:
                 "xpath: //*[@data-testid='DateRange-endDate']", endDate)
             self.seh.click_button(
                 "xpath: //*[@data-testid='search-date-dropdown-a']")
-            time.sleep(1)
+            time.sleep(2)
         except:
             raise BotException('Error setting date range')
 
@@ -91,7 +91,7 @@ class NYTBot:
                     "xpath: //div[@data-testid='section']//button[@data-testid='search-multiselect-button']")
                 self.seh.click_element(
                     "xpath: //*[contains(@value, '{}')]".format(self.section))
-                time.sleep(1)
+                time.sleep(2)
             except:
                 raise BotException('Error setting section')
 
@@ -100,7 +100,7 @@ class NYTBot:
         try:
             self.seh.click_element(
                 "xpath: //*[contains(text(), 'Sort by Newest')]")
-            time.sleep(1)
+            time.sleep(2)
         except:
             raise BotException('Error sorting by newest')
 
@@ -109,9 +109,8 @@ class NYTBot:
         locator = "xpath: //button[@data-testid='search-show-more-button']"
         try:
             while True:
-                self.seh.wait_until_page_contains_element(locator)
                 self.seh.click_button(locator)
-                time.sleep(1)
+                time.sleep(2)
         except:
             pass
 
