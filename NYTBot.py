@@ -2,7 +2,6 @@ import os
 import re
 import time
 from datetime import datetime
-from pathlib import Path
 from typing import Tuple
 from urllib.parse import urlparse
 
@@ -36,7 +35,6 @@ class NYTBot:
         self.months_number = months_number
         self.output_excel = output_excel
         self.output_pictures = output_pictures
-        Path(self.output_pictures).mkdir(parents=True, exist_ok=True)
 
     def get_dates(self, months_number: int) -> Tuple[str, str]:
         if months_number == 0:

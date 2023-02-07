@@ -5,7 +5,7 @@
       "section": "U.S.",
       "months_number": 0,
       "output_excel": "output/data.xlsx",
-      "output_pictures": "output/pictures"
+      "output_pictures": "output"
     },
     "files": {}
   }
