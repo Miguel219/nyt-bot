@@ -111,8 +111,8 @@ class NYTBot:
             while True:
                 self.seh.click_button(locator)
                 time.sleep(2)
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
     # Get all information
     def get_all_information(self):
