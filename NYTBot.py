@@ -1,4 +1,5 @@
 import os
+import re
 import time
 from datetime import datetime
 from pathlib import Path
@@ -46,6 +47,16 @@ class NYTBot:
 
     def count_term_in_string(self, term: str, text: str) -> int:
         return text.lower().count(term.lower())
+
+    def contains_any_amount_of_money(self, text: str) -> bool:
+        format1 = '[$]([0-9]+([.][0-9]+)?)'
+        format2 = '[$]([0-9]?[0-9]?[0-9]?([,][0-9]{{3}})*([.][0-9]+)?)'
+        format3 = '([0-9]+([.][0-9]+)?)(( dollars)|( USD))'
+        format4 = '([0-9]?[0-9]?[0-9]?([,][0-9]{{3}})*([.][0-9]+)?)(( dollars)|( USD))'
+        if re.search("({})|({})|({})|({})".format(format1, format2, format3, format4), text):
+            return True
+        else:
+            return False
 
     # Search Term
     def search_term(self):
@@ -145,6 +156,12 @@ class NYTBot:
             row['count_search_phrases'] = (
                 self.count_term_in_string(self.term, row['title']) +
                 self.count_term_in_string(self.term, row['description'])
+            )
+
+            # Contains any amount of money
+            row['contains_any_amount_of_money'] = (
+                self.contains_any_amount_of_money(row['title']) or
+                self.contains_any_amount_of_money(row['description'])
             )
 
             # Append results

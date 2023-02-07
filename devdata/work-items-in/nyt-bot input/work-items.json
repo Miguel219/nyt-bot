@@ -1,14 +1,12 @@
 [
   {
     "payload": {
-      "term": "soccer",
-      "section": "Briefing",
-      "months_number": 2,
+      "term": "money",
+      "section": "U.S.",
+      "months_number": 0,
       "output_excel": "output/data.xlsx",
       "output_pictures": "output/pictures"
     },
-    "files": {
-      "orders.xlsx": "orders.xlsx"
-    }
+    "files": {}
   }
 ]
