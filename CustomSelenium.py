@@ -1,16 +1,14 @@
 from typing import List
 
 from selenium.webdriver import Chrome
-from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import By, WebElement
-from webdriver_manager.chrome import ChromeDriverManager
 
 
 class CustomSelenium(Chrome):
 
-    def __init__(self):
-        super().__init__(service=ChromeService(ChromeDriverManager().install()))
+    # def __init__(self):
+    #     super().__init__('C:\\webdrivers\\chromedriver.exe')
 
     def input_text(self, locator: str, term: str) -> WebElement:
         element = self.find_element(by=By.XPATH, value=locator)
