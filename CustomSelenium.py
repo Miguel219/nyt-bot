@@ -1,29 +1,14 @@
 from typing import List
 
-from selenium.webdriver import Chrome
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.remote.webelement import By, WebElement
+from RPA.Browser.Selenium import Selenium
+from selenium.webdriver.remote.webelement import WebElement
 
 
-class CustomSelenium(Chrome):
+class CustomSelenium(Selenium):
 
-    # def __init__(self):
-    #     super().__init__('C:\\webdrivers\\chromedriver.exe')
-
-    def input_text(self, locator: str, term: str) -> WebElement:
-        element = self.find_element(by=By.XPATH, value=locator)
-        element.send_keys(term)
-        return element
-
-    def search_for(self, locator: str, term: str) -> WebElement:
-        element = self.input_text(locator, term)
-        element.send_keys(Keys.ENTER)
-        return element
-
-    def click_element(self, locator: str) -> WebElement:
-        element = self.find_element(by=By.XPATH, value=locator)
-        element.click()
-        return element
+    def search_for(self, locator: str, term: str) -> bool:
+        self.input_text(locator, term)
+        self.press_keys(locator, "ENTER")
 
     def get_element_in_element(self, by: str, locator: str, element: WebElement) -> WebElement or None:
         try:
@@ -33,12 +18,12 @@ class CustomSelenium(Chrome):
 
     def get_element(self, locator: str) -> WebElement or None:
         try:
-            return self.find_element(by=By.XPATH, value=locator)
+            return self.get_webelement(locator)
         except:
             return None
 
-    def get_elements(self, locator: str) -> List[WebElement]:
+    def get_elements(self, locator: str) -> List[WebElement] or None:
         try:
-            return self.find_elements(by=By.XPATH, value=locator)
+            return self.get_webelements(locator)
         except:
-            return []
+            return None
