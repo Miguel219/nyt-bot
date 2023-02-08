@@ -59,10 +59,10 @@ class NYTBot:
     # Search Term
     def search_term(self):
         try:
-            self.seh.click_button(
-                "xpath: //*[@data-test-id='search-button']")
+            self.seh.click_element(
+                "//*[@data-test-id='search-button']")
             self.seh.search_for(
-                "xpath: //*[@data-testid='search-input']", self.term)
+                "//*[@data-testid='search-input']", self.term)
         except:
             raise BotException('Error searching for a term')
 
@@ -70,15 +70,15 @@ class NYTBot:
     def set_date_range(self):
         try:
             startDate, endDate = self.get_dates(self.months_number)
-            self.seh.click_button(
-                "xpath: //*[@data-testid='search-date-dropdown-a']")
-            self.seh.click_button("xpath: //*[@value='Specific Dates']")
+            self.seh.click_element(
+                "//*[@data-testid='search-date-dropdown-a']")
+            self.seh.click_element("//*[@value='Specific Dates']")
             self.seh.input_text(
-                "xpath: //*[@data-testid='DateRange-startDate']", startDate)
+                "//*[@data-testid='DateRange-startDate']", startDate)
             self.seh.input_text(
-                "xpath: //*[@data-testid='DateRange-endDate']", endDate)
-            self.seh.click_button(
-                "xpath: //*[@data-testid='search-date-dropdown-a']")
+                "//*[@data-testid='DateRange-endDate']", endDate)
+            self.seh.click_element(
+                "//*[@data-testid='search-date-dropdown-a']")
             time.sleep(1)
         except:
             raise BotException('Error setting date range')
@@ -87,10 +87,10 @@ class NYTBot:
     def set_section(self):
         if self.section != 'Any':
             try:
-                self.seh.click_button(
-                    "xpath: //div[@data-testid='section']//button[@data-testid='search-multiselect-button']")
                 self.seh.click_element(
-                    "xpath: //*[contains(@value, '{}')]".format(self.section))
+                    "//div[@data-testid='section']//button[@data-testid='search-multiselect-button']")
+                self.seh.click_element(
+                    "//*[contains(@value, '{}')]".format(self.section))
                 time.sleep(1)
             except:
                 raise BotException('Error setting section')
@@ -99,17 +99,17 @@ class NYTBot:
     def sort_by_newest(self):
         try:
             self.seh.click_element(
-                "xpath: //*[contains(text(), 'Sort by Newest')]")
+                "//*[contains(text(), 'Sort by Newest')]")
             time.sleep(1)
         except:
             raise BotException('Error sorting by newest')
 
     # Show all results
     def show_all_results(self):
-        locator = "xpath: //button[@data-testid='search-show-more-button']"
+        locator = "//button[@data-testid='search-show-more-button']"
         try:
             while True:
-                self.seh.click_button(locator)
+                self.seh.click_element(locator)
                 time.sleep(1)
         except Exception as e:
             print(e)
@@ -118,7 +118,7 @@ class NYTBot:
     def get_all_information(self):
         self.results = []
         results = self.seh.get_elements(
-            "xpath: //ol[@data-testid='search-results']//li[@data-testid='search-bodega-result']")
+            "//ol[@data-testid='search-results']//li[@data-testid='search-bodega-result']")
         for element in results:
             row = {}
             data = element.text.split('\n')
@@ -174,8 +174,7 @@ class NYTBot:
     # Run Bot
     def run(self):
         try:
-            self.seh.open_available_browser(
-                self.url, browser_selection='Chrome')
+            self.seh.get(self.url)
             self.search_term()
             self.set_date_range()
             self.set_section()
@@ -184,4 +183,4 @@ class NYTBot:
             self.get_all_information()
             self.save_data()
         finally:
-            self.seh.close_all_browsers()
+            self.seh.quit()
