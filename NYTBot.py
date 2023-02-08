@@ -109,6 +109,7 @@ class NYTBot:
         locator = "xpath: //button[@data-testid='search-show-more-button']"
         try:
             while True:
+                self.seh.scroll_element_into_view(locator)
                 self.seh.click_button(locator)
                 time.sleep(1)
         except Exception as e:
